@@ -1,0 +1,33 @@
+Terminate when no connection is specified:
+	- bridge pad 1 and 2 on 3-pad jumpers
+	- leave 2-pad jumpers disconnected
+
+VRC6A configuration:					MMC5 configuration:
+	- CPU_A0 -> S_CPU_A0 (2-3)				- CPU_A0 -> S_CPU_A0
+	- CPU_A1 -> S_CPU_A1 (2-3)				- CPU_A1 -> S_CPU_A1
+	- CPU_A12 -> S_CPU_A12					- CPU_A2 -> S_CPU_A2
+	- CPU_A13 -> S_CPU_A13					- CPU_A3 -> S_CPU_A3
+	- ~{CE}_VRC6 -> S_~{ROMSEL}				- CPU_A4 -> S_CPU_A4
+											- CPU_A5 -> S_CPU_A5
+VRC6B configuration:						- CPU_A6 -> S_CPU_A6
+	- CPU_A3 -> S_CPU_A3 (1-3)				- CPU_A7 -> S_CPU_A7
+	- CPU_A4 -> S_CPU_A4 (1-3)				- CPU_A8 -> S_CPU_A8
+	- CPU_A5 -> S_CPU_A5					- CPU_A9 -> S_CPU_A9
+	- ~{CE}_VRC7 -> ~{ROMSEL}				- CPU_A10 -> S_CPU_A10
+											- CPU_A11 -> S_CPU_A11
+VRC7A configuration:						- CPU_A12 -> S_CPU_A12
+	- CPU_A4 -> S_CPU_A4					- CE_MMC5 -> S_CPU_A14
+	- CPU_A5 -> S_CPU_A5					- ~{ROMSEL} -> S_~{ROMSEL}
+	- ~{CE}_VRC7 -> S_~{ROMSEL}	
+										N163 configuration:
+FDS configuration:							- CPU_A11 -> S_CPU_A11
+	- CPU_A0 -> S_CPU_A0					- CPU_A12 -> S_CPU_A12
+	- CPU_A1 -> S_CPU_A1					- CPU_A13 -> S_CPU_A13
+	- CPU_A2 -> S_CPU_A2					- CE_N163 -> S_CPU_A14
+	- CPU_A3 -> S_CPU_A3					- ~{ROMSEL} -> S_~{ROMSEL}
+	- CPU_A4 -> S_CPU_A4
+	- CPU_A5 -> S_CPU_A5				Sunsoft 5B configuration:
+	- CPU_A6 -> S_CPU_A6					- CPU_A13 -> S_CPU_A13
+	- CPU_A7 -> S_CPU_A7					- CPU_A14 -> S_CPU_A14
+	- ~{CE}_FDS -> S_CPU_A12				- ~{CE}_S5B -> S_~{ROMSEL}
+	- CPU_A14 -> S_CPU_A14

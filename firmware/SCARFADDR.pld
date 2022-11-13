@@ -1,0 +1,113 @@
+Name			SCARFADDR ;
+PartNo			00 ;
+Date			11/10/2022 ;
+Revision		0.0.3 ;
+Designer		Persune ;
+Company			Sattelite & Stardust ;
+Assembly		None ;
+Location		None ;
+Device			virtual ;		/* use a JEDEC 512k PROM */
+
+/*
+	S.C.A.R.F. Expansion Audio Interfacer Address Decoder
+	Firmware v.0.0.2
+	Copyright (C) 2022 Persune
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of
+	this software and associated documentation files (the "Software"), to deal in
+	the Software without restriction, including without limitation the rights to
+	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+	the Software, and to permit persons to whom the Software is furnished to do so,
+	subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+	FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/* Inputs */
+PIN 1	= CPU_A0;
+PIN 2	= CPU_A1;
+PIN 3	= CPU_A2;
+PIN 4	= CPU_A3;
+PIN 5	= CPU_A4;
+PIN 6	= CPU_A5;
+PIN 7	= CPU_A6;
+PIN 8	= CPU_A7;
+PIN 9	= CPU_A8;
+PIN 10	= CPU_A9;
+PIN 11	= CPU_A10;
+PIN 12	= CPU_A11;
+PIN 13	= CPU_A12;
+PIN 14	= CPU_A13;
+PIN 15	= CPU_A14;
+PIN 16	= !RomSel;
+PIN 17	= CPU_RW;
+PIN 18	= M2;
+/*
+	x000000000000000000
+	 ||||||||||||||||||
+	 |||+++++++++++++++- CPU_A0...CPU_A14:	CPU address bus
+	 ||+---------------- RomSel:			Active low, only way to determine CPU_A15
+	 |+----------------- CPU_RW:			Low indicates write, high indicates read
+	 +------------------ M2:				CPU clock, data guaranteed on highk
+*/
+
+/* Outputs */
+
+PIN 19 = S5B_Enable;
+PIN 20 = N163_Enable;
+PIN 21 = VRC7_Enable;
+PIN 22 = VRC6_Enable;
+PIN 23 = MMC5_Enable;
+PIN 24 = FDS_Enable;
+
+
+/* S5B: 11xx xxxx xxxx xxxx
+	Addresses:
+	$C000-$DFFF	 W
+	$E000-$FFFF	 W */
+!S5B_Enable		=	[M2, !CPU_RW, !RomSel, CPU_A14]:&;
+
+/* N163:	 111x xxxx xxxx xxxx
+	Addresses:
+	$E000-$E7FF	 W
+	$F800-$FFFF	RW */
+N163_Enable		=	[M2, !RomSel, CPU_A14, CPU_A13]:&;
+
+/* VRC7:	 1xxx 0000 00x1 0000
+	Addresses:
+	$9010		 W
+	$9030		 W
+	$E000		 W */
+!VRC7_Enable	=	[M2, !CPU_RW, !RomSel,!CPU_A11, !CPU_A10, !CPU_A9, !CPU_A8, !CPU_A7, !CPU_A6, !CPU_A3, !CPU_A2, !CPU_A1, !CPU_A0]:&;
+
+/* VRC6:	 10xx 0000 0000 00xx
+	Addresses:
+	$9003		 W
+	$9000-$9002	 W
+	$A000-$A002	 W
+	$B000-$B002	 W */
+!VRC6_Enable	=	[M2, !CPU_RW, !RomSel, !CPU_A14, !CPU_A11, !CPU_A10, !CPU_A9, !CPU_A8, !CPU_A7, !CPU_A6, !CPU_A5, !CPU_A4, !CPU_A3, !CPU_A2]:&;
+
+/* MMC5:	 0101 0000 000x 0xxx
+	Addresses:
+	$5000-$5007	 W
+	$5010		RW
+	$5011		 W
+	$5015		RW */
+MMC5_Enable		=	[M2, RomSel, CPU_A14, !CPU_A13, CPU_A12, !CPU_A11, !CPU_A10, !CPU_A9, !CPU_A8, !CPU_A7, !CPU_A6, !CPU_A5, !CPU_A3]:&;
+
+/* FDS:	 0100 0000 xxxx xxxx
+	Addresses:
+	$4023
+	$4040-$4080
+	$4082-$408A
+	$4090-$4097 */
+!FDS_Enable		=	[M2, RomSel, CPU_A14, !CPU_A13, !CPU_A12, !CPU_A11, !CPU_A10, !CPU_A9, !CPU_A8]:&;

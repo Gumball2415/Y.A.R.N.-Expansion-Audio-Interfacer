@@ -28,5 +28,14 @@ fp-info-cache
 *.xml
 *.csv
 
-# backups
-YARN-backups/
+# exported gerbers
+gerbers/*
+
+# packaged release
+distribute/*
+
+# vector graphics and PCB silkscreen art
+graphics/*
+
+# svg2shenzhen generated files
+*.svg2shenzhen-cache
