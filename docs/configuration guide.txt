@@ -2,32 +2,104 @@ Terminate when no connection is specified:
 	- bridge pad 1 and 2 on 3-pad jumpers
 	- leave 2-pad jumpers disconnected
 
-VRC6A configuration:					MMC5 configuration:
-	- CPU_A0 -> S_CPU_A0 (2-3)				- CPU_A0 -> S_CPU_A0
-	- CPU_A1 -> S_CPU_A1 (2-3)				- CPU_A1 -> S_CPU_A1
-	- CPU_A12 -> S_CPU_A12					- CPU_A2 -> S_CPU_A2
-	- CPU_A13 -> S_CPU_A13					- CPU_A3 -> S_CPU_A3
-	- ~{CE}_VRC6 -> S_~{ROMSEL}				- CPU_A4 -> S_CPU_A4
-											- CPU_A5 -> S_CPU_A5
-VRC6B configuration:						- CPU_A6 -> S_CPU_A6
-	- CPU_A3 -> S_CPU_A3 (1-3)				- CPU_A7 -> S_CPU_A7
-	- CPU_A4 -> S_CPU_A4 (1-3)				- CPU_A8 -> S_CPU_A8
-	- CPU_A5 -> S_CPU_A5					- CPU_A9 -> S_CPU_A9
-	- ~{CE}_VRC7 -> ~{ROMSEL}				- CPU_A10 -> S_CPU_A10
-											- CPU_A11 -> S_CPU_A11
-VRC7A configuration:						- CPU_A12 -> S_CPU_A12
-	- CPU_A4 -> S_CPU_A4					- CE_MMC5 -> S_CPU_A14
-	- CPU_A5 -> S_CPU_A5					- ~{ROMSEL} -> S_~{ROMSEL}
-	- ~{CE}_VRC7 -> S_~{ROMSEL}	
-										N163 configuration:
-FDS configuration:							- CPU_A11 -> S_CPU_A11
-	- CPU_A0 -> S_CPU_A0					- CPU_A12 -> S_CPU_A12
-	- CPU_A1 -> S_CPU_A1					- CPU_A13 -> S_CPU_A13
-	- CPU_A2 -> S_CPU_A2					- CE_N163 -> S_CPU_A14
-	- CPU_A3 -> S_CPU_A3					- ~{ROMSEL} -> S_~{ROMSEL}
-	- CPU_A4 -> S_CPU_A4
-	- CPU_A5 -> S_CPU_A5				Sunsoft 5B configuration:
-	- CPU_A6 -> S_CPU_A6					- CPU_A13 -> S_CPU_A13
-	- CPU_A7 -> S_CPU_A7					- CPU_A14 -> S_CPU_A14
-	- ~{CE}_FDS -> S_CPU_A12				- ~{CE}_S5B -> S_~{ROMSEL}
-	- CPU_A14 -> S_CPU_A14
+VRC6:		10xx 0000 0000 00xx
+	Audio registers:
+		$9003	     W
+		$9000-$9002	 W
+		$A000-$A002	 W
+		$B000-$B002	 W
+
+	Configuration (VRC6A):
+		- CPU_A0 -> S_CPU_A0 (2-3)
+		- CPU_A1 -> S_CPU_A1 (2-3)
+		- CPU_A12 -> S_CPU_A12
+		- CPU_A13 -> S_CPU_A13
+		- ~{CE}_VRC6 -> S_~{ROMSEL}
+
+	Configuration (VRC6B):
+		- CPU_A3 -> S_CPU_A3 (1-3)
+		- CPU_A4 -> S_CPU_A4 (1-3)
+		- CPU_A5 -> S_CPU_A5
+		- ~{CE}_VRC7 -> ~{ROMSEL}
+
+VRC7:		1xxx 0000 00x1 0000
+	Audio registers:
+		$9010		     W
+		$9030		     W
+		$E000		     W
+
+	Configuration:
+		- CPU_A4 -> S_CPU_A4
+		- CPU_A5 -> S_CPU_A5
+		- ~{CE}_VRC7 -> S_~{ROMSEL}
+
+Sunsoft 5B:	11xx xxxx xxxx xxxx
+	Audio registers:
+		$C000-$DFFF	 W
+		$E000-$FFFF	 W
+
+	Configuration:
+		- CPU_A13 -> S_CPU_A13
+		- CPU_A14 -> S_CPU_A14
+		- ~{CE}_S5B -> S_~{ROMSEL}
+
+N163:		x1xx xxxx xxxx xxxx
+	Audio registers:
+		$4800-$4FFF	RW
+		$E000-$E7FF	 W
+		$F800-$FFFF	RW
+
+	Configuration:
+		- CPU_A11 -> S_CPU_A11
+		- CPU_A12 -> S_CPU_A12
+		- CPU_A13 -> S_CPU_A13
+		- CPU_A14  -> S_CPU_A14
+		- CPU_R~{W) -> S_CPU_R~{W}
+		- ~{ROMSEL} -> S_~{ROMSEL}
+
+MMC5:		0101 xxxx xxxx xxxx
+	Audio registers:
+		$5000-$5007	 W
+		$5010         RW
+		$5011          W
+		$5015         RW
+		$5205-$5206   RW      MMC5 multiplier
+		$5C00-$5FF5   RW      MMC5 internal extended RAM
+
+	Configuration:
+		- CPU_A0 -> S_CPU_A0
+		- CPU_A1 -> S_CPU_A1
+		- CPU_A2 -> S_CPU_A2
+		- CPU_A3 -> S_CPU_A3
+		- CPU_A4 -> S_CPU_A4
+		- CPU_A5 -> S_CPU_A5
+		- CPU_A6 -> S_CPU_A6
+		- CPU_A7 -> S_CPU_A7
+		- CPU_A8 -> S_CPU_A8
+		- CPU_A9 -> S_CPU_A9
+		- CPU_A10 -> S_CPU_A10
+		- CPU_A11 -> S_CPU_A11
+		- CPU_A12 -> S_CPU_A12
+		- CPU_A14 -> S_CPU_A14
+		- CPU_R~{W) -> S_CPU_R~{W}
+		- ~{ROMSEL} -> S_~{ROMSEL}
+
+FDS:		0100 0000 xxxx xxxx
+	Audio registers:
+		$4023         ?
+		$4040-$4080   RW
+		$4082-$408A    W
+		$4090-$4097   R
+
+	Configuration:
+		- CPU_A0 -> S_CPU_A0
+		- CPU_A1 -> S_CPU_A1
+		- CPU_A2 -> S_CPU_A2
+		- CPU_A3 -> S_CPU_A3
+		- CPU_A4 -> S_CPU_A4
+		- CPU_A5 -> S_CPU_A5
+		- CPU_A6 -> S_CPU_A6
+		- CPU_A7 -> S_CPU_A7
+		- ~{CE}_FDS -> S_CPU_A12
+		- CPU_A14 -> S_CPU_A14
+		- CPU_R~{W) -> S_CPU_R~{W}

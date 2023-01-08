@@ -39,3 +39,6 @@ graphics/*
 
 # svg2shenzhen generated files
 *.svg2shenzhen-cache
+
+# JLCPCB generated files
+production/*

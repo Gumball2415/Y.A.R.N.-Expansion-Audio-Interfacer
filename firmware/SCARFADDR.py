@@ -1,5 +1,5 @@
 # S.C.A.R.F. Expansion Audio Interfacer Address Decoder
-# Firmware v.0.0.6
+# Firmware v.0.0.7
 # Copyright (C) 2022 Persune
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -41,7 +41,7 @@ def AddressDecode(ROMAddr: int) -> int:
     # |||||||+- VRC6_Enable     Active low
     # ||||||+-- VRC7_Enable     Active low
     # |||||+--- S5B_Enable:     Active low
-    # ||||+---- N163_Enable     Active high
+    # ||||+---- N163_Enable     Active high,    CPU_A14
     # |||+----- MMC5_Enable     Active high
     # ||+------ FDS_Enable      Active low
     # ++------- x:              reserved
@@ -88,7 +88,7 @@ def AddressDecode(ROMAddr: int) -> int:
             # $E000-$E7FF	 W
             # $F800-$FFFF	RW
     if ((CPU_addr == 0xE000 or CPU_addr == 0xF800) and (not CPU_RW)
-        or CPU_addr == 0x4800):
+        or (CPU_addr == 0x4800)):
         N163_Enable = True
 
     # MMC5:	 0101 xxxx xxxx xxxx
