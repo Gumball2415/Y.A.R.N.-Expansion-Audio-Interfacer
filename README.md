@@ -29,5 +29,5 @@ This project aims to allow a host cartridge to control an expansion audio cartri
 
 ## Support
 
-Support me on [Ko-Fi](https://ko-fi.com/persune) to help me afford hardware development equipment and further improve this project!
+If you enjoy this project or find it helpful, please support me on [Ko-Fi](https://ko-fi.com/persune) or [Patreon](https://www.patreon.com/persune)!
 
