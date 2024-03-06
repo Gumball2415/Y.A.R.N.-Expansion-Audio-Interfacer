@@ -4,7 +4,27 @@
 
 An Open-Source HardWare (OSHW) Famicom single expansion audio interfacer.
 
+## About
+
 This project aims to allow a host cartridge to control an expansion audio cartridge's sound chip through selected audio registers. This is a child of the S.C.A.R.F. project.
+
+The principle is that the Main cartridge is expected to contain everything the NSF or program needs, with the audio solely being handled by the Exp audio cartridge.
+
+This means that the expansion audio cartridge is write-only.
+
+## Use
+
+The Main cartridge is expected to contain mapper hardware that the NSF or program needs.
+
+The Console is expected to not read the Exp. cartridge, but instead to write to registers the Exp. cartridge is expected to contain.
+
+The Exp. cartridge must contain hardware that generates audio accessible by write-only registers that the Console expects.
+
+If the Exp. cartridge contains VRC6B, toggle SW2 accordingly.
+
+Do not toggle SW1, it is for prototyping purposes.
+
+For Everdrives and flash carts: The flash cart UI (if it has one) may cause unwanted side effects if it is connected to YARN.
 
 ## PCB Specifications
 
